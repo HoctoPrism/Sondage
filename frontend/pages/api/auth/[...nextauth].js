@@ -1,10 +1,8 @@
 import NextAuth from "next-auth"
 import axios from "axios";
 import CredentialsProvider from "next-auth/providers/credentials"
-import jwt_decode from "jwt-decode";
 
 let finalUser = {};
-let jwtToken = "";
 
 export const authOptions = {
     session: {
@@ -30,13 +28,9 @@ export const authOptions = {
 
                 // On attend dans le retour un token JWT contenant un name, email et roles
                 if (res) {
-                    jwtToken = res.data.token;
-                    let token = jwt_decode(res.data.token);
                     finalUser = {
-                        name: token.name,
-                        email: token.email,
-                        role: token.roles,
-                        token: jwtToken
+                        name: res?.user?.name,
+                        email: res?.user?.email,
                     }
                     return finalUser
                 } else {

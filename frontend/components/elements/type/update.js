@@ -21,19 +21,11 @@ function Update(props) {
     let editTypeForm = async () => {
         try {
 
-            // Ici on test si l'utilisateur est admin et a un token JWT, si il l'a pas il ne sera pas autorisé
-            let auth = {};
-            if (!session?.user?.token && session?.user?.role !== "ROLE_ADMIN") {
-                return auth
-            } else {
-                auth = { "headers" : {"Authorization":"Bearer"+session?.user?.token} }
-            }
-
             let updatedPark = {
                 id: id ? id : parseInt(oneType.id),
                 name: name ? name : oneType.name,
             }
-            let res = await axios.patch("/api/types/" + oneType.id, {name}, auth)
+            let res = await axios.patch("/api/types/" + oneType.id, {name})
             if (res.status === 200) {
                 const foundIndex = props.updateValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.updateValue.data, {[foundIndex]: {$set: updatedPark}})

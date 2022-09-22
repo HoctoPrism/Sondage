@@ -17,16 +17,7 @@ function Delete(props) {
     let deleteType = async (e) => {
         e.preventDefault();
         try {
-
-            // Ici on test si l'utilisateur est admin et a un token JWT, si il l'a pas il ne sera pas autorisé
-            let auth = {};
-            if (!session?.user?.token && session?.user?.role !== "ROLE_ADMIN") {
-                return auth
-            } else {
-                auth = { "headers" : {"Authorization":"Bearer"+session?.user?.token} }
-            }
-
-            let res = await axios.delete('/api/types/' + oneType.id, auth)
+            let res = await axios.delete('/api/types/' + oneType.id)
             if (res.status === 200) {
                 const foundIndex = props.deleteValue.data.findIndex(x => x.id === oneType.id);
                 let data = update(props.deleteValue.data, {$splice: [[foundIndex, 1]]})

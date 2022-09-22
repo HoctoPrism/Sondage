@@ -80,9 +80,6 @@ function Type() {
             <Button variant="contained" sx={{ mt: 5 }} href="login">Connexion</Button>
         </Box>
     }
-    if (session && session?.user?.role !== "ROLE_ADMIN"){
-        return  <Typography variant="h5" sx={{textAlign: "center"}} gutterBottom>Vous n&apos;êtes pas autorisé à accéder à cette ressource...</Typography>
-    }
 
     return <Container maxWidth="md" id="type">
         <Paper sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', py: 10}}>

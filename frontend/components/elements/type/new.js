@@ -20,15 +20,7 @@ function New(props) {
     let newTypeForm = async () => {
         try {
 
-            // Ici on test si l'utilisateur est admin et a un token JWT, si il l'a pas il ne sera pas autorisé
-            let auth = {};
-            if (!session?.user?.token && session?.user?.role !== "ROLE_ADMIN") {
-                return auth
-            } else {
-                auth = { "headers" : {"Authorization":"Bearer"+session?.user?.token} }
-            }
-
-            let res = await axios.post('/api/types', {name}, auth)
+            let res = await axios.post('/api/types', {name})
             if (res.status === 200) {
                 let tab = {};
                 await Object.assign(tab, res.data.data);
